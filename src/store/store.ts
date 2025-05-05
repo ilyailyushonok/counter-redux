@@ -1,10 +1,9 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import {incrementorReducer} from "../module/counter-reducer.ts";
-import {settingsReducer} from "../module/settings-reducer.ts";
+import {counterReducer} from "../module/counter-reducer.ts";
 
 const rootReducer = combineReducers({
-    counter:incrementorReducer,
-    settings: settingsReducer,
+    counter:counterReducer,
+   
 })
 export const store=configureStore({reducer:rootReducer})
 
