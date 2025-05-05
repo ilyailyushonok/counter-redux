@@ -19,13 +19,12 @@ function App() {
     }
 
     return (
-        <>
+        <div className='app'>
             <Settings/>
             <Counter count={count}
             increment={increment}
             reset={reset}/>
-        </>
+        </div>
     )
 }
-
 export default App
