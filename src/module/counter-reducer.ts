@@ -1,6 +1,6 @@
 import {createAction, createReducer} from "@reduxjs/toolkit";
 
-export const incrementorAC = createAction<{value?:number}>('counter/increment')
+export const incrementorAC = createAction('counter/increment')
 export const resetAC = createAction('counter/reset')
 export const changeMaxValueAC = createAction<{ value: number }>('settings/settingsMaxValue')
 export const changeMinValueAC = createAction<{ value: number }>('settings/settingsMinValue')
@@ -22,9 +22,8 @@ type stateType = typeof initialState
 
 export const counterReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(incrementorAC, (state: stateType,action) => {
-           if(action.payload.value) state.count=action.payload.value
-           else state.count++
+        .addCase(incrementorAC, (state: stateType) => {
+            state.count++
         })
         .addCase(resetAC, (state: stateType) => {
             state.count = 0

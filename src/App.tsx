@@ -18,14 +18,12 @@ function App() {
 
     const dispatch = useDispatch();
 
-    const increment = (value?:number) => {
-         dispatch(incrementorAC({value}))
+    const increment = () => {
+         dispatch(incrementorAC())
     }
     const reset = () => {
         dispatch(resetAC())
     }
-
-
 
     const changeMaxValue = (value: number) => {
         dispatch(changeMaxValueAC({value}))
@@ -36,7 +34,6 @@ function App() {
     const settingsSet = () => {
         dispatch(settingsSetAC())
     }
-
 
 
     return (
