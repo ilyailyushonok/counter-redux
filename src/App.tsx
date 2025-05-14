@@ -2,24 +2,42 @@ import './App.css'
 import {Settings} from "./components/Settings.tsx";
 import {Counter} from "./components/Counter.tsx";
 import {useDispatch, useSelector} from "react-redux";
-import {changeMaxValueAC, changeMinValueAC, incrementorAC, resetAC, settingsSetAC} from "./module/counter-reducer.ts";
+import {
+    changeMaxValueAC,
+    changeMinValueAC,
+    incrementorAC,
+    resetAC,
+    settingsSetAC,
+    validationAC
+} from "./module/counter-reducer.ts";
 import {RootStateType} from "./store/store.ts";
 
 
 
 function App() {
+
     const selectCount = (state: RootStateType): number => state.counter.count
     const selectMaxCount = (state: RootStateType): number => state.counter.maxValue
     const selectMinCount = (state: RootStateType): number => state.counter.minValue
+    const selectIsValid = (state: RootStateType): boolean => state.counter.isValid
 
     const count = useSelector(selectCount);
     const maxCount = useSelector(selectMaxCount);
     const minCount = useSelector(selectMinCount);
+    const validation=useSelector(selectIsValid);
 
     const dispatch = useDispatch();
 
+    const setValidation=(value:boolean)=>{
+        dispatch(validationAC({isValid:value}));
+    }
+    if (minCount>=maxCount||minCount<0) {
+        setValidation(false)
+    }else {
+        setValidation(true)
+    }
     const increment = () => {
-         dispatch(incrementorAC())
+         dispatch(incrementorAC({maxCount}))
     }
     const reset = () => {
         dispatch(resetAC())
@@ -43,10 +61,12 @@ function App() {
                       changeMaxValue={changeMaxValue}
                       changeMinValue={changeMinValue}
                       settingsSet={settingsSet}
+                      validation={validation}
             />
             <Counter count={count}
                      increment={increment}
                      reset={reset}
+                     validation={validation}
             />
         </div>
     )

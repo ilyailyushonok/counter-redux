@@ -7,9 +7,10 @@ type Props = {
     settingsSet: () => void,
     minCount: number,
     maxCount: number,
+    validation: boolean
 }
 
-export const Settings = ({ maxCount, minCount, settingsSet, changeMinValue, changeMaxValue}: Props) => {
+export const Settings = ({validation, maxCount, minCount, settingsSet, changeMinValue, changeMaxValue}: Props) => {
 
 
     const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,11 +32,19 @@ export const Settings = ({ maxCount, minCount, settingsSet, changeMinValue, chan
         <div className={s.settingsWrapper}>
             <div className={s.inputWrapper}>
                 <span>max value</span>
-                <input type="number" value={maxCount} onChange={onChangeMaxValueHandler}/>
+                <input type="number"
+                       value={maxCount}
+                       onChange={onChangeMaxValueHandler}
+                       className={!validation ? s.err : ''}
+                />
             </div>
             <div className={s.inputWrapper}>
                 <span>start value</span>
-                <input type="number" value={minCount} onChange={onChangeMinValueHandler}/>
+                <input type="number"
+                       value={minCount}
+                       onChange={onChangeMinValueHandler}
+                       className={!validation ? s.err : ''}
+                />
             </div>
 
             <button className={s.btn} onClick={onClickHandler}>set</button>

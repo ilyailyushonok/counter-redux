@@ -1,11 +1,11 @@
 import {createAction, createReducer} from "@reduxjs/toolkit";
 
-export const incrementorAC = createAction('counter/increment')
+export const incrementorAC = createAction<{maxCount:number}>('counter/increment')
 export const resetAC = createAction('counter/reset')
 export const changeMaxValueAC = createAction<{ value: number }>('settings/settingsMaxValue')
 export const changeMinValueAC = createAction<{ value: number }>('settings/settingsMinValue')
 export const settingsSetAC = createAction('settings/settingsSet')
-export const validationAC = createAction<{value:boolean}>('settings/validation')
+export const validationAC = createAction<{isValid:boolean}>('settings/validation')
 
 const  getStorageValue=  (x: string)=>  {
     const item = localStorage.getItem(x);
@@ -14,19 +14,18 @@ const  getStorageValue=  (x: string)=>  {
 const initialState:{count:number,minValue:number,maxValue:number,isValid:boolean} = {
     count:getStorageValue('count')||0 ,
     minValue:getStorageValue('minValue')|| 0 ,
-    maxValue:getStorageValue('maxValue')|| 0 ,
+    maxValue:getStorageValue('maxValue')|| 1 ,
     isValid: true
-
 }
 type stateType = typeof initialState
 
 export const counterReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(incrementorAC, (state: stateType) => {
-            state.count++
+        .addCase(incrementorAC, (state: stateType,action) => {
+            if(action.payload.maxCount > state.count)state.count++
         })
         .addCase(resetAC, (state: stateType) => {
-            state.count = 0
+            state.count = state.minValue
         })
         .addCase(changeMinValueAC, (state, action) => {
             state.minValue = action.payload.value
@@ -38,6 +37,6 @@ export const counterReducer = createReducer(initialState, (builder) => {
             state.count = state.minValue
         })
         .addCase(validationAC, (state, action) => {
-            state.isValid = action.payload.value
+            state.isValid = action.payload.isValid
         })
 })

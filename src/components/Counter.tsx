@@ -4,9 +4,10 @@ type Props = {
     count: number
     increment: () => void
     reset: () => void
+    validation:boolean
 }
 
-export const Counter = ({count, reset, increment}: Props) => {
+export const Counter = ({validation,count, reset, increment}: Props) => {
 
     const onClickIncrementHandler = () => {
         increment()
@@ -18,7 +19,10 @@ export const Counter = ({count, reset, increment}: Props) => {
     }
     return (
         <div className={s.counterWrapper}>
-            <div className={s.scope}>{count}</div>
+            <div className={s.scope}>{validation
+                ? <span className={s.spanCount}>{count}</span>
+                : <span className={s.err}>incorrect value</span>}
+            </div>
 
             <div className={s.btnWrapper}>
 
