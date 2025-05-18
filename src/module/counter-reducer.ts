@@ -11,11 +11,14 @@ const  getStorageValue=  (x: string)=>  {
     const item = localStorage.getItem(x);
     return item!==null? JSON.parse(item) : undefined;
 }
-const initialState:{count:number,minValue:number,maxValue:number,isValid:boolean} = {
+const initialState:{count:number,minValue:number,maxValue:number,isValid:boolean,
+    // editMode:boolean
+} = {
     count:getStorageValue('count')||0 ,
     minValue:getStorageValue('minValue')|| 0 ,
     maxValue:getStorageValue('maxValue')|| 1 ,
-    isValid: true
+    isValid: true,
+    // editMode:false
 }
 type stateType = typeof initialState
 
@@ -29,12 +32,15 @@ export const counterReducer = createReducer(initialState, (builder) => {
         })
         .addCase(changeMinValueAC, (state, action) => {
             state.minValue = action.payload.value
+            // state.editMode = true
         })
         .addCase(changeMaxValueAC, (state, action) => {
             state.maxValue = action.payload.value
+            // state.editMode = true
         })
         .addCase(settingsSetAC, (state) => {
             state.count = state.minValue
+            // state.editMode = false
         })
         .addCase(validationAC, (state, action) => {
             state.isValid = action.payload.isValid
