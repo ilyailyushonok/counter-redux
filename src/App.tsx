@@ -20,11 +20,13 @@ function App() {
     const selectMaxCount = (state: RootStateType): number => state.counter.maxValue
     const selectMinCount = (state: RootStateType): number => state.counter.minValue
     const selectIsValid = (state: RootStateType): boolean => state.counter.isValid
+    const selectEditMode = (state: RootStateType): boolean => state.counter.editMode
 
     const count = useSelector(selectCount);
     const maxCount = useSelector(selectMaxCount);
     const minCount = useSelector(selectMinCount);
     const validation=useSelector(selectIsValid);
+    const editMode=useSelector(selectEditMode);
 
     const dispatch = useDispatch();
 
@@ -67,6 +69,7 @@ function App() {
                      increment={increment}
                      reset={reset}
                      validation={validation}
+                     editMode={editMode}
             />
         </div>
     )
