@@ -13,7 +13,6 @@ import {
 import {RootStateType} from "./store/store.ts";
 
 
-
 function App() {
 
     const selectCount = (state: RootStateType): number => state.counter.count
@@ -25,21 +24,21 @@ function App() {
     const count = useSelector(selectCount);
     const maxCount = useSelector(selectMaxCount);
     const minCount = useSelector(selectMinCount);
-    const validation=useSelector(selectIsValid);
-    const editMode=useSelector(selectEditMode);
+    const validation = useSelector(selectIsValid);
+    const editMode = useSelector(selectEditMode);
 
     const dispatch = useDispatch();
 
-    const setValidation=(value:boolean)=>{
-        dispatch(validationAC({isValid:value}));
+    const setValidation = (value: boolean) => {
+        dispatch(validationAC({isValid: value}));
     }
-    if (minCount>=maxCount||minCount<0) {
+    if (minCount >= maxCount || minCount < 0) {
         setValidation(false)
-    }else {
+    } else {
         setValidation(true)
     }
     const increment = () => {
-         dispatch(incrementorAC({maxCount}))
+        dispatch(incrementorAC({maxCount}))
     }
     const reset = () => {
         dispatch(resetAC())
@@ -54,7 +53,6 @@ function App() {
     const settingsSet = () => {
         dispatch(settingsSetAC())
     }
-
 
     return (
         <div className='app'>
