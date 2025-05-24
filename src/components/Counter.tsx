@@ -21,12 +21,12 @@ export const Counter = ({validation, count, reset, increment, editMode}: Props) 
     return (
         <div className={s.counterWrapper}>
             <div className={s.scope}>{
-                         !validation
-                         ? <span className={s.err}>incorrect value</span>
-                         : editMode
-                         ? <span>Set is new values</span>
-                         : <span className={s.spanCount}>{count}</span>
-                         }
+                !validation
+                    ? <span className={s.err}>incorrect value</span>
+                    : editMode
+                        ? <span>Set is new values</span>
+                        : <span className={s.spanCount}>{count}</span>
+            }
 
             </div>
 
