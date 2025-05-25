@@ -12,7 +12,7 @@ const getStorageValue = (x: string) => {
     return item !== null ? JSON.parse(item) : undefined;
 }
 const initialState: {
-    count: number, minValue: number, maxValue: number, isValid: boolean,
+   count: number, minValue: number, maxValue: number, isValid: boolean,
     editMode: boolean
 } = {
     count: getStorageValue('count') || 0,

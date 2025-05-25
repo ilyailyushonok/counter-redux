@@ -10,27 +10,20 @@ import {
     settingsSetAC,
     validationAC
 } from "./module/counter-reducer.ts";
-import {RootStateType} from "./store/store.ts";
+import {selectCount, selectEditMode, selectIsValid, selectMaxCount, selectMinCount} from "./module/selectors.ts";
 
 
 function App() {
-
-    const selectCount = (state: RootStateType): number => state.counter.count
-    const selectMaxCount = (state: RootStateType): number => state.counter.maxValue
-    const selectMinCount = (state: RootStateType): number => state.counter.minValue
-    const selectIsValid = (state: RootStateType): boolean => state.counter.isValid
-    const selectEditMode = (state: RootStateType): boolean => state.counter.editMode
-
     const count = useSelector(selectCount);
     const maxCount = useSelector(selectMaxCount);
     const minCount = useSelector(selectMinCount);
     const validation = useSelector(selectIsValid);
-    const editMode = useSelector(selectEditMode);
+    const isEditMode = useSelector(selectEditMode);
 
     const dispatch = useDispatch();
 
-    const setValidation = (value: boolean) => {
-        dispatch(validationAC({isValid: value}));
+    const setValidation = (isValid: boolean) => {
+        dispatch(validationAC({isValid}));
     }
     if (minCount >= maxCount || minCount < 0) {
         setValidation(false)
@@ -61,13 +54,13 @@ function App() {
                       changeMaxValue={changeMaxValue}
                       changeMinValue={changeMinValue}
                       settingsSet={settingsSet}
-                      validation={validation}
+                      isValidation={validation}
             />
             <Counter count={count}
                      increment={increment}
                      reset={reset}
-                     validation={validation}
-                     editMode={editMode}
+                     isValidation={validation}
+                     isEditMode={isEditMode}
             />
         </div>
     )
