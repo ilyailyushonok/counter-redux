@@ -1,4 +1,5 @@
 import {createAction, createReducer} from "@reduxjs/toolkit";
+import {getStorageValue} from "./getStorageValues.ts";
 
 export const incrementorAC = createAction<{ maxCount: number }>('counter/increment')
 export const resetAC = createAction('counter/reset')
@@ -7,10 +8,7 @@ export const changeMinValueAC = createAction<{ value: number }>('settings/settin
 export const settingsSetAC = createAction('settings/settingsSet')
 export const validationAC = createAction<{ isValid: boolean }>('settings/validation')
 
-const getStorageValue = (x: string) => {
-    const item = localStorage.getItem(x);
-    return item !== null ? JSON.parse(item) : undefined;
-}
+
 const initialState: {
    count: number, minValue: number, maxValue: number, isValid: boolean,
     editMode: boolean
