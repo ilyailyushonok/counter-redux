@@ -57,6 +57,7 @@ function App() {
                       isValidation={validation}
             />
             <Counter count={count}
+                     maxCount={maxCount}
                      increment={increment}
                      reset={reset}
                      isValidation={validation}

@@ -6,9 +6,20 @@ type Props = {
     reset: () => void
     isValidation: boolean
     isEditMode: boolean
+    maxCount: number
 }
 
-export const Counter = ({isValidation, count, reset, increment, isEditMode}: Props) => {
+const CounterScope=({isEditMode,isValidation,count}: {isEditMode:boolean,isValidation:boolean,count:number})=>{
+    return (
+        !isValidation
+            ? <span className={s.err}>incorrect value</span>
+            : isEditMode
+                ? <span>Set is new values</span>
+                : <span className={s.spanCount } >{count}</span>
+    )
+}
+
+export const Counter = ({maxCount, count, reset, increment,isValidation,isEditMode}: Props) => {
 
     const onClickIncrementHandler = () => {
         increment()
@@ -20,14 +31,8 @@ export const Counter = ({isValidation, count, reset, increment, isEditMode}: Pro
     }
     return (
         <div className={s.counterWrapper}>
-            <div className={s.scope}>{
-                //todo вынести в отдельный компонент
-                !isValidation
-                    ? <span className={s.err}>incorrect value</span>
-                    : isEditMode
-                        ? <span>Set is new values</span>
-                        : <span className={s.spanCount}>{count}</span>
-            }
+            <div className={`${s.scope}  ${count===maxCount?s.red:""}`}>
+                <CounterScope count={count} isEditMode={isEditMode} isValidation={isValidation}/>
             </div>
             <div className={s.btnWrapper}>
                 <button className={s.btn} onClick={onClickIncrementHandler}>inc</button>
