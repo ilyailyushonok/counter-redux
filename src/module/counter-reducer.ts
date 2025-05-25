@@ -1,5 +1,5 @@
 import {createAction, createReducer} from "@reduxjs/toolkit";
-import {getStorageValue} from "./getStorageValues.ts";
+import {valuesInStorage} from "./getStorageValues.ts";
 
 export const incrementorAC = createAction<{ maxCount: number }>('counter/increment')
 export const resetAC = createAction('counter/reset')
@@ -10,15 +10,16 @@ export const validationAC = createAction<{ isValid: boolean }>('settings/validat
 
 
 const initialState: {
-   count: number, minValue: number, maxValue: number, isValid: boolean,
+    count: number, minValue: number, maxValue: number, isValid: boolean,
     editMode: boolean
-} = {
-    count: getStorageValue('count') || 0,
-    minValue: getStorageValue('minValue') || 0,
-    maxValue: getStorageValue('maxValue') || 1,
-    isValid: true,
-    editMode: false
-}
+} =
+    {
+        count: valuesInStorage.value || 0,
+        minValue: valuesInStorage.minValue || 0,
+        maxValue: valuesInStorage.maxValue || 1,
+        isValid: true,
+        editMode: false
+    }
 type stateType = typeof initialState
 
 export const counterReducer = createReducer(initialState, (builder) => {
